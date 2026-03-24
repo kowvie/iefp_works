@@ -6,3 +6,4 @@ elif tempo.lower() == "no":
     print("You can't sit with us")
 else:
     print("Decide then!")
+    
