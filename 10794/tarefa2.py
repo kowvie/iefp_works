@@ -8,7 +8,6 @@ def ligacao_bd():
             password="JsSribeiro14",
             database="works"
         )
-        print("Ligação estabelecida com sucesso!")
         return ligacao
     except mysql.connector.Error as erro:
         print(f"Erro ao ligar à BD: {erro}")
@@ -82,7 +81,7 @@ def eliminar_utilizador(cursor, ligacao):
 
 def menu():
     ligacao = ligacao_bd()
-
+    print("Teste")
     if ligacao:
         cursor = ligacao.cursor()
 
@@ -115,5 +114,6 @@ def menu():
         ligacao.close()
     else:
         print("Não foi possível ligar à BD.")
+
 
 menu()
