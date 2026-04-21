@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Peças</h2>
+
+<a href="/pecas/criar/">Nova Peça</a>
+
+<ul>
+    {% for p in pecas %}
+        <li>{{ p.nome }} - {{ p.categoria }} - {{ p.estacao }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Criar Peça</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    Nome: <input type="text" name="nome"><br>
+    Cor: <input type="text" name="cor"><br>
+    Marca: <input type="text" name="marca"><br>
+    Tamanho: <input type="text" name="tamanho"><br>
+    Data: <input type="date" name="data"><br>
+
+    Categoria:
+    <select name="categoria">
+        {% for c in categorias %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+        {% endfor %}
+    </select>
+
+    Estação:
+    <select name="estacao">
+        {% for e in estacoes %}
+            <option value="{{ e.id }}">{{ e.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}
