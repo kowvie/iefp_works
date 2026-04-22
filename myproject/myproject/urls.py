@@ -1,8 +1,7 @@
-from django.urls import path
-from barbies_closet import views
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('pecas/', views.lista_pecas, name='lista_pecas'),
-    path('pecas/criar/', views.criar_peca, name='criar_peca'),
-    path('outfits/', views.lista_outfits, name='lista_outfits'),
+    path('admin/', admin.site.urls),
+    path('', include('barbies_closet.urls')),
 ]
