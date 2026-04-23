@@ -40,3 +40,20 @@ def criar_peca(request):
 def lista_outfits(request):
     outfits = Outfit.objects.filter(utilizador=request.user)
     return render(request, 'outfits/lista.html', {'outfits': outfits})
+
+def criar_outfit(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+        pecas_ids = request.POST.getlist('pecas')
+
+        outfit = Outfit.objects.create(
+            nome=nome,
+            utilizador=request.user
+        )
+
+        outfit.pecas.set(pecas_ids)
+
+        return redirect('lista_outfits')
+
+    pecas = Peca.objects.filter(utilizador=request.user)
+    return render(request, 'outfits/criar.html', {'pecas': pecas})

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Criar Outfit</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Nome: <input type="text" name="nome"><br>
+
+    <h3>Selecionar Peças:</h3>
+    {% for p in pecas %}
+        <input type="checkbox" name="pecas" value="{{ p.id }}">
+        {{ p.nome }}<br>
+    {% endfor %}
+
+    <button type="submit">Criar Outfit</button>
+</form>
+<h2>Outfits Criados</h2>
+{% endblock %}

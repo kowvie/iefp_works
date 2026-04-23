@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Outfits</h2>
+
+<a href="/outfits/criar/">Novo Outfit</a>
+
+<ul>
+    {% for o in outfits %}
+        <li>
+            {{ o.nome }}
+            <ul>
+                {% for p in o.pecas.all %}
+                    <li>{{ p.nome }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+<h2>Fim</h2>
+{% endblock %}
