@@ -23,7 +23,6 @@ class Peca(models.Model):
     tamanho = models.CharField(max_length=10)
     data_aquisicao = models.DateField()
     frequencia_uso = models.IntegerField(default=0)
-
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)
     estacao = models.ForeignKey(Estacao, on_delete=models.SET_NULL, null=True)
 
