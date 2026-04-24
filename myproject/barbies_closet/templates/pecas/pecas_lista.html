@@ -15,5 +15,28 @@
         </li>
     {% endfor %}
 </ul>
+<h3>Filtrar</h3>
+
+<form method="GET">
+    Categoria:
+    <select name="categoria">
+        <option value="">Todas</option>
+        {% for c in categorias %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+        {% endfor %}
+    </select>
+
+    Estação:
+    <select name="estacao">
+        <option value="">Todas</option>
+        {% for e in estacoes %}
+            <option value="{{ e.id }}">{{ e.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<hr>
 
 {% endblock %}

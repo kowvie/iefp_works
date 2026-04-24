@@ -8,12 +8,29 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def lista_pecas(request):
     pecas = Peca.objects.filter(utilizador=request.user)
-    return render(request, 'pecas/lista.html', {'pecas': pecas})
+
+    categoria_id = request.GET.get('categoria')
+    estacao_id = request.GET.get('estacao')
+
+    if categoria_id:
+        pecas = pecas.filter(categoria_id=categoria_id)
+
+    if estacao_id:
+        pecas = pecas.filter(estacao_id=estacao_id)
+
+    categorias = Categoria.objects.all()
+    estacoes = Estacao.objects.all()
+
+    return render(request, 'pecas/pecas_lista.html', {
+        'pecas': pecas,
+        'categorias': categorias,
+        'estacoes': estacoes
+    })
 
 @login_required
 def lista_pecas(request):
     pecas = Peca.objects.filter(utilizador=request.user)
-    return render(request, 'pecas/lista.html', {'pecas': pecas})
+    return render(request, 'pecas/pecas_lista.html', {'pecas': pecas})
 
 @login_required
 def criar_peca(request):
@@ -96,27 +113,6 @@ def apagar_peca(request, id):
 
     return render(request, 'pecas/pecas_apagar.html', {'peca': peca})
 
-@login_required
-def lista_pecas(request):
-    pecas = Peca.objects.filter(utilizador=request.user)
-
-    categoria = request.GET.get('categoria')
-    estacao = request.GET.get('estacao')
-
-    if categoria:
-        pecas = pecas.filter(categoria_id=categoria)
-
-    if estacao:
-        pecas = pecas.filter(estacao_id=estacao)
-
-    categorias = Categoria.objects.all()
-    estacoes = Estacao.objects.all()
-
-    return render(request, 'pecas/pecas_lista.html', {
-        'pecas': pecas,
-        'categorias': categorias,
-        'estacoes': estacoes
-    })
 
 @login_required
 def detalhe_outfit(request, id):
