@@ -6,8 +6,14 @@
 <a href="/pecas/criar/">Nova Peça</a>
 
 <ul>
+    {% for p in pecas %}
         <li>
-            <a href="{}">
+            {{ p.nome }} - {{ p.categoria }} - {{ p.estacao }}
+
+            | <a href="/pecas/editar/{{ p.id }}/">Editar</a>
+            | <a href="/pecas/apagar/{{ p.id }}/">Apagar</a>
         </li>
+    {% endfor %}
 </ul>
+
 {% endblock %}

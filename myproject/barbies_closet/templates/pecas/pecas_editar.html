@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Editar Peça</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    Nome: <input type="text" name="nome" value="{{ peca.nome }}"><br>
+    Cor: <input type="text" name="cor" value="{{ peca.cor }}"><br>
+    Marca: <input type="text" name="marca" value="{{ peca.marca }}"><br>
+    Tamanho: <input type="text" name="tamanho" value="{{ peca.tamanho }}"><br>
+
+    <button type="submit">Guardar Alterações</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Apagar Peça</h2>
+
+<p>Tens a certeza que queres apagar "{{ peca.nome }}"?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sim, apagar</button>
+</form>
+
+<a href="/pecas/">Cancelar</a>
+
+{% endblock %}

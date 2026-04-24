@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Peca
 from .models import Outfit
 from .models import Categoria, Estacao
+from django.contrib import messages
 
 def lista_pecas(request):
     pecas = Peca.objects.filter(utilizador=request.user)
@@ -60,3 +61,53 @@ def criar_outfit(request):
 
     pecas = Peca.objects.filter(utilizador=request.user)
     return render(request, 'outfit/outfit_criar.html', {'pecas': pecas})
+
+def editar_peca(request, id):
+    peca = Peca.objects.get(id=id)
+
+    if request.method == 'POST':
+        peca.nome = request.POST['nome']
+        peca.cor = request.POST['cor']
+        peca.marca = request.POST['marca']
+        peca.tamanho = request.POST['tamanho']
+        peca.save()
+        return redirect('lista_pecas')
+
+    return render(request, 'pecas/pecas_editar.html', {'peca': peca})
+
+def apagar_peca(request, id):
+    peca = Peca.objects.get(id=id)
+
+    if request.method == 'POST':
+        peca.delete()
+        return redirect('lista_pecas')
+
+    return render(request, 'pecas/pecas_apagar.html', {'peca': peca})
+
+def lista_pecas(request):
+    pecas = Peca.objects.filter(utilizador=request.user)
+
+    categoria = request.GET.get('categoria')
+    estacao = request.GET.get('estacao')
+
+    if categoria:
+        pecas = pecas.filter(categoria_id=categoria)
+
+    if estacao:
+        pecas = pecas.filter(estacao_id=estacao)
+
+    categorias = Categoria.objects.all()
+    estacoes = Estacao.objects.all()
+
+    return render(request, 'pecas/pecas_lista.html', {
+        'pecas': pecas,
+        'categorias': categorias,
+        'estacoes': estacoes
+    })
+
+def detalhe_outfit(request, id):
+    outfit = Outfit.objects.get(id=id)
+    return render(request, 'outfits/outfits_detalhe.html', {'outfit': outfit})
+
+    messages.error(request, "Erro ao criar outfit")
+    messages.success(request, "Outfit criado com sucesso")
