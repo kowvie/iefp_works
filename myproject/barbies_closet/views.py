@@ -3,11 +3,19 @@ from .models import Peca
 from .models import Outfit
 from .models import Categoria, Estacao
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def lista_pecas(request):
     pecas = Peca.objects.filter(utilizador=request.user)
     return render(request, 'pecas/lista.html', {'pecas': pecas})
 
+@login_required
+def lista_pecas(request):
+    pecas = Peca.objects.filter(utilizador=request.user)
+    return render(request, 'pecas/lista.html', {'pecas': pecas})
+
+@login_required
 def criar_peca(request):
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -39,10 +47,12 @@ def criar_peca(request):
         'estacoes': estacoes
     })
 
+@login_required
 def lista_outfits(request):
     outfits = Outfit.objects.filter(utilizador=request.user)
     return render(request, 'outfit/outfit_lista.html', {'outfits': outfits})
 
+@login_required
 def criar_outfit(request):
     if request.method == 'POST':
         nome = request.POST['nome']
@@ -62,6 +72,7 @@ def criar_outfit(request):
     pecas = Peca.objects.filter(utilizador=request.user)
     return render(request, 'outfit/outfit_criar.html', {'pecas': pecas})
 
+@login_required
 def editar_peca(request, id):
     peca = Peca.objects.get(id=id)
 
@@ -75,6 +86,7 @@ def editar_peca(request, id):
 
     return render(request, 'pecas/pecas_editar.html', {'peca': peca})
 
+@login_required
 def apagar_peca(request, id):
     peca = Peca.objects.get(id=id)
 
@@ -84,6 +96,7 @@ def apagar_peca(request, id):
 
     return render(request, 'pecas/pecas_apagar.html', {'peca': peca})
 
+@login_required
 def lista_pecas(request):
     pecas = Peca.objects.filter(utilizador=request.user)
 
@@ -105,6 +118,7 @@ def lista_pecas(request):
         'estacoes': estacoes
     })
 
+@login_required
 def detalhe_outfit(request, id):
     outfit = Outfit.objects.get(id=id)
     return render(request, 'outfits/outfits_detalhe.html', {'outfit': outfit})
