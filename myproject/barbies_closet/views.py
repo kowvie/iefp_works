@@ -40,17 +40,22 @@ def criar_peca(request):
         categoria = get_object_or_404(Categoria, id=request.POST['categoria'])
         estacao = get_object_or_404(Estacao, id=request.POST['estacao'])
 
-        Peca.objects.create(
-            utilizador=request.user,
-            nome=nome,
-            cor=cor,
-            marca=marca,
-            tamanho=tamanho,
-            data_aquisicao=data,
-            categoria=categoria,
-            estacao=estacao
-        )
-        return redirect('lista_pecas')
+        try:
+            Peca.objects.create(
+                utilizador=request.user,
+                nome=nome,
+                cor=cor,
+                marca=marca,
+                tamanho=tamanho,
+                data_aquisicao=data,
+                categoria=categoria,
+                estacao=estacao
+            )
+            messages.success(request, "Peça criada com sucesso!")
+            return redirect('lista_pecas')
+        except:
+            messages.error(request, "Erro ao criar peça.")
+            return redirect('lista_pecas')
 
     categorias = Categoria.objects.all()
     estacoes = Estacao.objects.all()
@@ -73,6 +78,7 @@ def criar_outfit(request):
 
         pecas = Peca.objects.filter(utilizador=request.user, id__in=pecas_ids)
         if pecas.count() != len(pecas_ids):
+            messages.error(request, "Erro ao criar outfit")
             return redirect('criar_outfit')
 
         outfit = Outfit.objects.create(
@@ -80,6 +86,7 @@ def criar_outfit(request):
             utilizador=request.user
         )
         outfit.pecas.set(pecas)
+        messages.success(request, "Outfit criado com sucesso")
         return redirect('lista_outfits')
 
     pecas = Peca.objects.filter(utilizador=request.user)
@@ -95,6 +102,7 @@ def editar_peca(request, id):
         peca.marca = request.POST['marca']
         peca.tamanho = request.POST['tamanho']
         peca.save()
+        messages.success(request, "Peça atualizada com sucesso!")
         return redirect('lista_pecas')
 
     return render(request, 'pecas/pecas_editar.html', {'peca': peca})
@@ -105,6 +113,7 @@ def apagar_peca(request, id):
 
     if request.method == 'POST':
         peca.delete()
+        messages.success(request, "Peça apagada com sucesso!")
         return redirect('lista_pecas')
 
     return render(request, 'pecas/pecas_apagar.html', {'peca': peca})
@@ -114,9 +123,6 @@ def apagar_peca(request, id):
 def detalhe_outfit(request, id):
     outfit = Outfit.objects.get(id=id)
     return render(request, 'outfit/outfit_detalhe.html', {'outfit': outfit})
-
-    messages.error(request, "Erro ao criar outfit")
-    messages.success(request, "Outfit criado com sucesso")
 
 @login_required
 def editar_outfit(request, id):
@@ -129,7 +135,7 @@ def editar_outfit(request, id):
         outfit.save()
 
         outfit.pecas.set(pecas_ids)
-
+        messages.success(request, "Outfit atualizado com sucesso")
         return redirect('detalhe_outfit', id=outfit.id)
 
     pecas = Peca.objects.filter(utilizador=request.user)
@@ -152,11 +158,12 @@ def usar_peca(request, id):
 def criar_categoria(request):
     if request.method == 'POST':
         nome = request.POST['nome']
-
-        Categoria.objects.create(nome=nome)
-
-        return redirect('lista_categorias')
-
+        if nome:
+            Categoria.objects.create(nome=nome)
+            messages.success(request, 'Categoria criada com sucesso!')
+            return redirect('lista_categorias')
+        else:
+            messages.error(request, 'O nome da categoria não pode estar vazio.')
     return render(request, 'categorias/categorias_criar.html')
 
 @login_required
@@ -167,22 +174,24 @@ def lista_categorias(request):
 @login_required
 def editar_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
-
     if request.method == 'POST':
-        categoria.nome = request.POST['nome']
-        categoria.save()
-        return redirect('lista_categorias')
-
+        nome = request.POST['nome']
+        if nome:
+            categoria.nome = nome
+            categoria.save()
+            messages.success(request, 'Categoria editada com sucesso!')
+            return redirect('lista_categorias')
+        else:
+            messages.error(request, 'O nome da categoria não pode estar vazio.')
     return render(request, 'categorias/categorias_editar.html', {'categoria': categoria})
 
 @login_required
 def apagar_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
-
     if request.method == 'POST':
         categoria.delete()
+        messages.success(request, 'Categoria apagada com sucesso!')
         return redirect('lista_categorias')
-
     return render(request, 'categorias/categorias_apagar.html', {'categoria': categoria})
 
 @login_required
@@ -191,7 +200,7 @@ def criar_estacao(request):
         nome = request.POST['nome']
 
         Estacao.objects.create(nome=nome)
-
+        messages.success(request, "Estação criada com sucesso!")
         return redirect('lista_estacoes')
 
     return render(request, 'estacoes/estacoes_criar.html')
@@ -208,6 +217,7 @@ def editar_estacao(request, id):
     if request.method == 'POST':
         estacao.nome = request.POST['nome']
         estacao.save()
+        messages.success(request, "Estação editada com sucesso")
         return redirect('lista_estacoes')
 
     return render(request, 'estacoes/estacoes_editar.html', {'estacao': estacao})
@@ -218,6 +228,7 @@ def apagar_estacao(request, id):
 
     if request.method == 'POST':
         estacao.delete()
+        messages.success(request, "Estação apagada com sucesso")
         return redirect('lista_estacoes')
 
-    return render(request, 'estacoes/estacoes_apagar.html', {'estacao': estacao})
+    return render(request, 'estacoes/estacoes_apagar.html', {'estacao': estacao})    
