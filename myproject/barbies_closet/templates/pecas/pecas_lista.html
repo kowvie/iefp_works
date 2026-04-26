@@ -2,16 +2,15 @@
 
 {% block content %}
 <h2>Peças</h2>
-
-<a href="/pecas/criar/">Nova Peça</a>
+<a href="{% url 'criar_peca' %}">Nova Peça</a>
 
 <ul>
     {% for p in pecas %}
         <li>
             {{ p.nome }} - {{ p.categoria }} - {{ p.estacao }}
 
-            | <a href="/pecas/editar/{{ p.id }}/">Editar</a>
-            | <a href="/pecas/apagar/{{ p.id }}/">Apagar</a>
+            | <a href="{% url 'editar_peca' p.id %}">Editar</a>
+            | <a href="{% url 'apagar_peca' p.id %}">Apagar</a>
         </li>
     {% endfor %}
 </ul>
