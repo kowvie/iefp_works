@@ -146,4 +146,4 @@ def usar_peca(request, id):
     peca.frequencia_uso += 1
     peca.save()
 
-    return redirect('pecas_lista')
+    return redirect('lista_pecas')
