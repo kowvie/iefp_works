@@ -4,7 +4,6 @@ from .models import Outfit
 from .models import Categoria, Estacao
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import get_object_or_404
 
 @login_required
 def lista_pecas(request):
