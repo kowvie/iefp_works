@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ outfit.nome }}</h2>
+
+<h3>Peças no outfit:</h3>
+
+<ul>
+    {% for p in outfit.pecas.all %}
+        <li>{{ p.nome }} - {{ p.categoria }} - {{ p.estacao }}</li>
+    {% endfor %}
+</ul>
+
+<a href="/outfits/">Voltar</a>
+
+{% endblock %}

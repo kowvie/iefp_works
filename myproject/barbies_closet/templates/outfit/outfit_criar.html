@@ -6,15 +6,17 @@
 <form method="POST">
     {% csrf_token %}
 
-    Nome: <input type="text" name="nome"><br>
+    Nome: <input type="text" name="nome"><br><br>
 
-    <h3>Selecionar Peças:</h3>
+    <h3>Selecionar Peças</h3>
+
     {% for p in pecas %}
         <input type="checkbox" name="pecas" value="{{ p.id }}">
-        {{ p.nome }}<br>
+        {{ p.nome }} ({{ p.categoria }}) <br>
     {% endfor %}
 
-    <button type="submit">Criar Outfit</button>
+    <br>
+    <button type="submit">Guardar</button>
 </form>
-<h2>Outfits Criados</h2>
+
 {% endblock %}
