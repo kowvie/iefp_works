@@ -63,7 +63,7 @@ def criar_peca(request):
 @login_required
 def lista_outfits(request):
     outfits = Outfit.objects.filter(utilizador=request.user)
-    return render(request, 'outfit/outfit_lista.html', {'outfits': outfits})
+    return render(request, 'outfit/outfit_lista.html', {'outfit': outfits})
 
 @login_required
 def criar_outfit(request):
@@ -80,7 +80,7 @@ def criar_outfit(request):
             utilizador=request.user
         )
         outfit.pecas.set(pecas)
-        return redirect('lista_outfits')
+        return redirect('outfit_lista')
 
     pecas = Peca.objects.filter(utilizador=request.user)
     return render(request, 'outfit/outfit_criar.html', {'pecas': pecas})
