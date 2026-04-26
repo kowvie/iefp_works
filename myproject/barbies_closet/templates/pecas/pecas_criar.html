@@ -5,11 +5,11 @@
 
 <form method="POST">
     {% csrf_token %}
-    Nome: <input type="text" name="nome"><br>
-    Cor: <input type="text" name="cor"><br>
-    Marca: <input type="text" name="marca"><br>
-    Tamanho: <input type="text" name="tamanho"><br>
-    Data: <input type="date" name="data"><br>
+    Nome: <input type="text" name="nome" required><br>
+    Cor: <input type="text" name="cor" required><br>
+    Marca: <input type="text" name="marca" required><br>
+    Tamanho: <input type="text" name="tamanho" required><br>
+    Data: <input type="date" name="data" required><br>
 
     Categoria:
     <select name="categoria">

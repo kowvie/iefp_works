@@ -6,10 +6,10 @@
 <form method="POST">
     {% csrf_token %}
 
-    Nome: <input type="text" name="nome" value="{{ peca.nome }}"><br>
-    Cor: <input type="text" name="cor" value="{{ peca.cor }}"><br>
-    Marca: <input type="text" name="marca" value="{{ peca.marca }}"><br>
-    Tamanho: <input type="text" name="tamanho" value="{{ peca.tamanho }}"><br>
+    Nome: <input type="text" name="nome" value="{{ peca.nome }}" required><br>
+    Cor: <input type="text" name="cor" value="{{ peca.cor }}" required><br>
+    Marca: <input type="text" name="marca" value="{{ peca.marca }}" required><br>
+    Tamanho: <input type="text" name="tamanho" value="{{ peca.tamanho }}" required><br>
 
     <button type="submit">Guardar Alterações</button>
 </form>
