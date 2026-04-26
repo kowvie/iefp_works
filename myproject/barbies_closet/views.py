@@ -117,3 +117,24 @@ def detalhe_outfit(request, id):
 
     messages.error(request, "Erro ao criar outfit")
     messages.success(request, "Outfit criado com sucesso")
+
+@login_required
+def editar_outfit(request, id):
+    outfit = Outfit.objects.get(id=id)
+
+    if request.method == 'POST':
+        outfit.nome = request.POST['nome']
+        pecas_ids = request.POST.getlist('pecas')
+
+        outfit.save()
+
+        outfit.pecas.set(pecas_ids)
+
+        return redirect('detalhe_outfit', id=outfit.id)
+
+    pecas = Peca.objects.filter(utilizador=request.user)
+
+    return render(request, 'outfit/outfit_editar.html', {
+        'outfit': outfit,
+        'pecas': pecas
+    })
