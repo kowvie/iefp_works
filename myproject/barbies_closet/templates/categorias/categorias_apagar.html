@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Apagar Categoria</h2>
+
+<p>Apagar "{{ categoria.nome }}"?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Sim</button>
+</form>
+
+{% endblock %}

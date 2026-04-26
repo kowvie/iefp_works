@@ -147,3 +147,40 @@ def usar_peca(request, id):
     peca.save()
 
     return redirect('lista_pecas')
+
+@login_required
+def criar_categoria(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+
+        Categoria.objects.create(nome=nome)
+
+        return redirect('lista_categorias')
+
+    return render(request, 'categorias/categorias_criar.html')
+
+@login_required
+def lista_categorias(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'categorias/categorias_lista.html', {'categorias': categorias})
+
+@login_required
+def editar_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+
+    if request.method == 'POST':
+        categoria.nome = request.POST['nome']
+        categoria.save()
+        return redirect('lista_categorias')
+
+    return render(request, 'categorias/categorias_editar.html', {'categoria': categoria})
+
+@login_required
+def apagar_categoria(request, id):
+    categoria = Categoria.objects.get(id=id)
+
+    if request.method == 'POST':
+        categoria.delete()
+        return redirect('lista_categorias')
+
+    return render(request, 'categorias/categorias_apagar.html', {'categoria': categoria})
