@@ -27,10 +27,6 @@ def lista_pecas(request):
         'estacoes': estacoes
     })
 
-@login_required
-def lista_pecas(request):
-    pecas = Peca.objects.filter(utilizador=request.user)
-    return render(request, 'pecas/pecas_lista.html', {'pecas': pecas})
 
 @login_required
 def criar_peca(request):
@@ -117,7 +113,7 @@ def apagar_peca(request, id):
 @login_required
 def detalhe_outfit(request, id):
     outfit = Outfit.objects.get(id=id)
-    return render(request, 'outfits/outfits_detalhe.html', {'outfit': outfit})
+    return render(request, 'outfit/outfit_detalhe.html', {'outfit': outfit})
 
     messages.error(request, "Erro ao criar outfit")
     messages.success(request, "Outfit criado com sucesso")
