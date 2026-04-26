@@ -6,18 +6,20 @@
 <form method="POST">
     {% csrf_token %}
 
-    Nome: <input type="text" name="nome" value="{{ outfit.nome }}"><br><br>
+    Nome: <input type="text" name="nome" value="{{ outfit.nome }}" required><br><br>
 
-    <h3>Peças</h3>
+    <h3>Selecionar Peças</h3>
 
     {% for p in pecas %}
         <input type="checkbox" name="pecas" value="{{ p.id }}"
-        {% if p in outfit.pecas.all %}checked{% endif %}>
+            {% if p in outfit.pecas.all %}checked{% endif %}>
         {{ p.nome }} ({{ p.categoria }}) <br>
     {% endfor %}
 
     <br>
     <button type="submit">Guardar Alterações</button>
 </form>
+
+<a href="{% url 'lista_outfits' %}">Cancelar</a>
 
 {% endblock %}
