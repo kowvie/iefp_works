@@ -184,3 +184,40 @@ def apagar_categoria(request, id):
         return redirect('lista_categorias')
 
     return render(request, 'categorias/categorias_apagar.html', {'categoria': categoria})
+
+@login_required
+def criar_estacao(request):
+    if request.method == 'POST':
+        nome = request.POST['nome']
+
+        Estacao.objects.create(nome=nome)
+
+        return redirect('lista_estacoes')
+
+    return render(request, 'estacoes/estacoes_criar.html')
+
+@login_required
+def lista_estacoes(request):
+    estacoes = Estacao.objects.all()
+    return render(request, 'estacoes/estacoes_lista.html', {'estacoes': estacoes})
+
+@login_required
+def editar_estacao(request, id):
+    estacao = Estacao.objects.get(id=id)
+
+    if request.method == 'POST':
+        estacao.nome = request.POST['nome']
+        estacao.save()
+        return redirect('lista_estacoes')
+
+    return render(request, 'estacoes/estacoes_editar.html', {'estacao': estacao})
+
+@login_required
+def apagar_estacao(request, id):
+    estacao = Estacao.objects.get(id=id)
+
+    if request.method == 'POST':
+        estacao.delete()
+        return redirect('lista_estacoes')
+
+    return render(request, 'estacoes/estacoes_apagar.html', {'estacao': estacao})

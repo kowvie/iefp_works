@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Estações</h2>
+
+<a href="/estacoes/criar/">Nova Estação</a>
+
+<ul>
+    {% for e in estacoes %}
+        <li>
+            {{ e.nome }}
+
+            | <a href="/estacoes/editar/{{ e.id }}/">Editar</a>
+            | <a href="/estacoes/apagar/{{ e.id }}/">Apagar</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
