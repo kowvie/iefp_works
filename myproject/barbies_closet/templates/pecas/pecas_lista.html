@@ -8,9 +8,11 @@
     {% for p in pecas %}
         <li>
             {{ p.nome }} - {{ p.categoria }} - {{ p.estacao }}
+            (Usada {{ p.frequencia_uso }} vezes)
 
-            | <a href="{% url 'editar_peca' p.id %}">Editar</a>
-            | <a href="{% url 'apagar_peca' p.id %}">Apagar</a>
+            | <a href="/pecas/editar/{{ p.id }}/">Editar</a>
+            | <a href="/pecas/apagar/{{ p.id }}/">Apagar</a>
+            | <a href="/pecas/usar/{{ p.id }}/">Usar</a>
         </li>
     {% endfor %}
 </ul>

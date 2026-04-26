@@ -12,4 +12,5 @@ urlpatterns = [
     path('outfit/', views.lista_outfits),
     path('outfit/<int:id>/', views.detalhe_outfit, name='detalhe_outfit'),
     path('outfit/editar/<int:id>/', views.editar_outfit, name='editar_outfit'),
+    path('pecas/usar/<int:id>/', views.usar_peca, name='usar_peca'),
 ]
