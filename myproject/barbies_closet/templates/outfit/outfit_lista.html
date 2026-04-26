@@ -3,12 +3,12 @@
 {% block content %}
 <h2>Outfits</h2>
 
-<a href="/outfits/criar/">Novo Outfit</a>
+<a href="/outfit/criar/">Novo Outfit</a>
 
 <ul>
     {% for o in outfits %}
         <li>
-            <a href="/outfits/{{ o.id }}/">
+            <a href="/outfit/{{ o.id }}/">
                 {{ o.nome }}
             </a>
         </li>
